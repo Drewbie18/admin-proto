@@ -1,3 +1,4 @@
+/// TODO Re-write this file to work with new structure; figure out where to store packaging results
 var gulp = require('gulp');
 var less = require('gulp-less');
 var browserSync = require('browser-sync').create();
