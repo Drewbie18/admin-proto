@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Hi-5 Admin Page Prototype</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+
+    <!-- JS -->
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+
+    <!-- ANGULAR CUSTOM -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers/main-ctrl.js"></script>
+    <script src="js/controllers/clients-ctrl.js"></script>
+    <script src="js/controllers/tokens-ctrl.js"></script>
+    <script src="js/controllers/transactions-ctrl.js"></script>
+    <script src="js/controllers/users-ctrl.js"></script>
+    <script src="js/services/clientsService.js"></script>
+    <script src="js/services/tokensService.js"></script>
+    <script src="js/services/transactionsService.js"></script>
+    <script src="js/services/usersService.js"></script>
+
+</head>
+<body ng-app="hi5-admin-app" ng-controller="main-ctrl">
+<div class="container">
+
+    <!-- HEADER -->
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Hi5 Admin Page</a>
+        </div>
+
+        <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
+        <ul class="nav navbar-nav">
+            <li><a href="#/clients">Clients</a></li>
+            <li><a href="#/tokens">Tokens</a></li>
+            <li><a href="#/transactions">Transactions</a></li>
+            <li><a href="#/users">Users</a></li>
+        </ul>
+    </nav>
+
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div ng-view></div>
+
+</div>
+</body>
+</html>

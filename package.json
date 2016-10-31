@@ -1,8 +1,8 @@
 {
-  "name": "Hi5 Admin Prototype",
-  "main": "server.js",
+  "name": "hi5-admin-prototype",
+  "main": "index.js",
   "title": "Hi5 Admin",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "David Poulin",
   "dependencies" : {
     "body-parser"    : "^1.4.3",
