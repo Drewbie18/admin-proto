@@ -1,5 +1,5 @@
 (function () {
-    var transactionsController = function ($scope, $http, $log) {
+    var transactionsController = function ($scope, $http, $log, transactionsService) {
         $scope.tagline = 'Transactions page';
     };
 

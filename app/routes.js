@@ -1,7 +1,7 @@
-var Client = require('./models/common/client');
-var Token = require('./models/common/token');
+var Client      = require('./models/common/client'     );
+var Token       = require('./models/common/token'      );
 var Transaction = require('./models/common/transaction');
-var User = require('./models/common/user');
+var User        = require('./models/common/user'       );
 
 module.exports = function (app) {
     // api ---------------------------------------------------------------------
@@ -12,10 +12,8 @@ module.exports = function (app) {
         Client.find(function (err, clients) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err)
-                res.send(err)
-
-            res.json(clients); // return all clients in JSON format
+            if (err) res.send(err)
+            else     res.json(clients); // return all clients in JSON format
         });
     });
 
@@ -23,19 +21,16 @@ module.exports = function (app) {
     app.post('/api/clients', function (req, res) {
 
         // create a transaction, information comes from AJAX request from Angular
-        Client.create({
-            text: req.body.text,
-            done: false
-        }, function (err, client) {
-            if (err)
-                res.send(err);
-
-            // get and return all the clients after you create another
-            Client.find(function (err, clients) {
-                if (err)
-                    res.send(err)
-                res.json(clients);
-            });
+        Client.create(req.body, function (err, client) {
+            if (err) res.send(err);
+            else {
+                // get and return all the clients after you create another
+                Client.find(function (err, clients) {
+                    if (err)
+                        res.send(err)
+                    res.json(clients);
+                });
+            }
         });
 
     });
@@ -44,16 +39,16 @@ module.exports = function (app) {
     app.delete('/api/clients/:client_id', function (req, res) {
         Client.remove({
             _id: req.params.client_id
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            // get and return all the clients after you create another
-            Client.find(function (err, clients) {
-                if (err)
-                    res.send(err)
-                res.json(clients);
-            });
+        }, function (err, client) {
+            if (err) res.send(err);
+            else {
+                // get and return all the clients after you create another
+                Client.find(function (err, clients) {
+                    if (err)
+                        res.send(err)
+                    res.json(clients);
+                });
+            }
         });
     });
 
@@ -217,8 +212,7 @@ module.exports = function (app) {
     });
 
     // application -------------------------------------------------------------
-
-    app.get('/', function (req, res) {
+    app.get('/*', function (req, res) {
         res.sendfile('/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 

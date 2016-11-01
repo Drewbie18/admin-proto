@@ -1,5 +1,5 @@
 (function () {
-    var tokensController = function ($scope, $http, $log) {
+    var tokensController = function ($scope, $http, $log, tokensService) {
         $scope.tagline = 'Tokens page';
     };
 

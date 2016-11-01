@@ -1,5 +1,5 @@
 (function () {
-    var usersController = function ($scope, $http, $log) {
+    var usersController = function ($scope, $http, $log, usersService) {
         $scope.tagline = 'Users page';
     };
 
