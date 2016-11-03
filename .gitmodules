@@ -1,3 +1,0 @@
-[submodule "app/models/common"]
-	path = app/models/common
-	url = https://davidopoulin@github.com/Drewbie18/data-proto.git
