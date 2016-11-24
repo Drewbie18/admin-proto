@@ -1,5 +1,10 @@
-<div class="jumbotron text-center">
-    <h1>Clients</h1>
+<div class="jumbotron text-left">
+    <h2>Clients</h2>
 
-    <p>{{ tagline }}</p>
+    <div ng-controller="clients-ctrl as vm">
+        <button type="button" id="addClient" class="btn btn-success" ng-click="vm.addRow(grid);">Add Client</button>
+        <button type="button" id="removeSelected" class="btn btn-danger" ng-click="showConfirm()" ng-disabled="!rowSelected">Remove Selected Client</button>
+
+        <div ui-grid="vm.clientsGrid" ui-grid-resize-columns ui-grid-selection ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="myGrid"></div>
+    </div>
 </div>

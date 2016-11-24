@@ -3,14 +3,22 @@
 
         var factory = {};
 
-        factory.get = function () {
-            return $http.get('/api/clients');
-        };
-
+        // C
         factory.create = function (clientData) {
             return $http.post('/api/clients', clientData);
         };
 
+        // R
+        factory.get = function () {
+            return $http.get('/api/clients');
+        };
+
+        // U
+        factory.update = function (clientData) {
+            return $http.put('/api/clients', clientData);
+        };
+
+        // D
         factory.delete = function (id) {
             return $http.delete('/api/clients/' + id);
         };

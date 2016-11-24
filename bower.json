@@ -5,7 +5,12 @@
     "bootstrap": "latest",
     "font-awesome": "latest",
     "animate.css": "latest",
-    "angular": "latest",
-    "angular-route": "latest"
+    "angular": "1.4.14",
+    "angular-route": "1.4.14",
+    "angular-ui-grid": "latest",
+    "angular-touch": "latest",
+    "angular-animate": "latest",
+    "angular-material": "^1.1.1",
+    "angular-messages": "^1.5.8"
   }
 }

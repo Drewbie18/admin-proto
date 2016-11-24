@@ -1,7 +1,15 @@
 var hi5AdminApp = angular.module('hi5-admin-app', [
-    'ngRoute'/*,
-    'ngAnimate',
-    'ui.bootstrap'*/
+    'ngRoute',
+    'ui.grid',
+    'ui.grid.edit',
+    'ui.grid.resizeColumns',
+    'ui.grid.rowEdit',
+    'ui.grid.cellNav',
+    'ui.grid.selection',
+    'ui.bootstrap',
+    'schemaForm',
+    'ngMaterial',
+    'ngMessages'
 ]);
 
 hi5AdminApp.config(function ($logProvider) {
@@ -41,4 +49,59 @@ hi5AdminApp.config(function ($routeProvider) {
         });
 
     //$locationProvider.html5Mode(true);
+});
+
+hi5AdminApp.constant('ClientSchema', {
+    type: 'object',
+    properties: {
+        firstName : {
+            type : 'string',
+            title: 'First Name'
+        },
+        lastName : {
+            type : 'string',
+            title: 'Last Name'
+        },
+        email : {
+            type : 'string',
+            title: 'Email Address'
+        },
+        phone : {
+            type : 'string',
+            title: 'Phone Number'
+        },
+        password : {
+            type : 'string',
+            title: 'Password'
+        },
+        /*registrationDate : {
+            type : Date,
+            title: Date.now()
+        },*/
+        companyName : {
+            type : 'string',
+            title: 'Company Name'
+        },
+        siteUrl : {
+            type : 'string',
+            title: 'Site URL'
+        },
+        state : {
+            type : 'string',
+            title: 'State'
+            /*enum: [
+                'NEW',
+                'PENDING_ACTIVATION',
+                'ACTIVE',
+                'SUSPENDED',
+                'CLOSED'
+            ]*/
+        }
+        /*tokens : {
+            type : [mongoose.Schema.Types.ObjectId]
+        },
+        history : {
+            type : [mongoose.Schema.Types.ObjectId]
+        }*/
+    }
 });
