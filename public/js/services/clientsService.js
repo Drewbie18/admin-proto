@@ -15,7 +15,7 @@
 
         // U
         factory.update = function (clientData) {
-            return $http.put('/api/clients', clientData);
+            return $http.put('/api/clients/' + clientData._id, clientData);
         };
 
         // D

@@ -4,15 +4,15 @@
         var factory = {};
 
         factory.get = function () {
-            return $http.get('/api/clients');
+            return $http.get('/api/users');
         };
 
         factory.create = function (userData) {
-            return $http.post('/api/clients', userData);
+            return $http.post('/api/users', userData);
         };
 
         factory.delete = function (id) {
-            return $http.delete('/api/clients/' + id);
+            return $http.delete('/api/users/' + id);
         };
 
         return factory;

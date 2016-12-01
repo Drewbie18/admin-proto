@@ -13,21 +13,14 @@
     ) {
 
         var vm = this;
-        var dataChanges = 0;
+        var initialDataLoadFinished = 0;
         var numRecords = 0;
         $scope.vm = vm;
-        clientsService.get()
-            .success(function(data) {
-                vm.clientsGrid.data = data;
-                console.log(data);
-                numRecords = data.length;
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+
 
         vm.editRow = rowEditorService.editRow;
         vm.addRow  = rowAddService.addRow;
+        vm.data = {};
 
         $scope.showConfirm = function(ev) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -142,20 +135,31 @@
             ]
         };
 
-        rowAddService.setGrid(vm.clientsGrid);
-        rowEditorService.setClientsCtrl(this);
+        vm.checkAndUpdateData = function(data) {
+            if (data.errmsg != null) {
+                console.log(data.errmsg);
+            }
+            else if (data.message != null) {
+                console.log(data.message);
+            }
+            else {
+                vm.data = data;
+                vm.clientsGrid.data = vm.data;
+                //$scope.gridApi.grid.modifyRows(vm.data);
+                console.log(data);
+            }
+        }
 
         vm.removeRow = function() {
-            vm.clientsGrid.data.forEach(function(item, index) {
-                if (item._id == $scope.selRowId) {
-                    vm.clientsGrid.data.splice(index, 1);
-                    var idToDelete = item._id;
+            $scope.gridApi.grid.rows.forEach(function(item, index) {
+                if (item.entity._id == $scope.selRowId) {
+                    var idToDelete = item.entity._id;
                     clientsService.delete(idToDelete)
                         .success(function(data) {
-                            alert("Removing row worked!!!");
+                            vm.checkAndUpdateData(data);
                         })
                         .error(function(data) {
-                            alert("Removing row failed!!!");
+                            console.log(data);
                         });
                 }
             });
@@ -164,32 +168,51 @@
         vm.dbSaveRow = function(rowEntity) {
             clientsService.update(rowEntity)
                 .success(function(data) {
-                    alert("Saving row worked!!!");
+                    vm.checkAndUpdateData(data);
                 })
                 .error(function(data) {
-                    alert("Saving row failed!!!");
+                    console.log(data);
                 });
         };
 
         vm.dbAddRow = function(data) {
             clientsService.create(data)
                 .success(function(data) {
-                    alert("Adding row worked!!!");
+                    vm.checkAndUpdateData(data);
                 })
                 .error(function(data) {
-                    alert("Adding row failed!!!");
+                    console.log(data);
                 });
         };
 
         vm.clientsGrid.onRegisterApi = function(gridApi){
             //set gridApi on scope
             $scope.gridApi = gridApi;
+            rowAddService.setGrid(vm.clientsGrid, gridApi);
+            rowEditorService.setClientsCtrl(vm);
+
+            $scope.gridApi.grid.callDbAddRow = function(data) {
+                vm.dbAddRow(data);
+            };
+
+            clientsService.get()
+                .success(function(data) {
+                    vm.data = data;
+                    vm.clientsGrid.data = vm.data;
+                    //$scope.gridApi.grid.modifyRows(vm.data);
+                    console.log(data);
+                    initialDataLoadFinished = 1;
+                    numRecords = data.length;
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
 
             gridApi.grid.registerDataChangeCallback(function(data) {
-                dataChanges++;
-                if (dataChanges > 2) {
-                    if (data.rows.length > numRecords) vm.dbAddRow(data.rows[data.rows.length-1].entity);
+                if (initialDataLoadFinished) {
+                    //if (data.rows.length > numRecords) vm.dbAddRow(data.rows[data.rows.length-1].entity);
                     numRecords = data.rows.length;
+                    //vm.dbSaveRow(data.rows[$scope.selRowId].entity);
                 }
             });
 

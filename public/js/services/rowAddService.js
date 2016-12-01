@@ -6,18 +6,22 @@
         factory.addRow = function() {
             $modal.open({
                 templateUrl: '/views/add-modal.html',
-                controller: ['$modalInstance', 'ClientSchema', 'grid', '$scope', rowAddController],
+                controller: ['$modalInstance', 'ClientSchema', 'grid', 'gridApi', '$scope', rowAddController],
                 controllerAs: 'vm',
                 resolve: {
                     grid: function () {
                         return $rootScope.grid;
+                    },
+                    gridApi: function () {
+                        return $rootScope.gridApi;
                     }
                 }
             });
         };
 
-        factory.setGrid = function(grid) {
-            $rootScope.grid = grid;
+        factory.setGrid = function(grid, gridApi) {
+            $rootScope.grid    = grid;
+            $rootScope.gridApi = gridApi;
         };
 
         return factory;
@@ -27,7 +31,7 @@
 
     angular.module('hi5-admin-app').factory('rowAddService', rowAddService);
 
-    var rowAddController = function ($modalInstance, ClientSchema, grid, $scope) {
+    var rowAddController = function ($modalInstance, ClientSchema, grid, gridApi, $scope) {
         var vm = this;
 
         vm.schema = ClientSchema;
@@ -87,23 +91,12 @@
         ];
         vm.entity = {};
         vm.grid = grid;
+        vm.gridApi = gridApi;
         vm.add = function (form) {
             $scope.$broadcast('schemaFormValidate');
             if (form.$valid) {
-                vm.grid.data.push(vm.entity);
-                /*vm.grid.data.push({
-                    "email": "johnroberts@gmail.com",
-                    "password": "password",
-                    "history": [],
-                    "tokens": [],
-                    "state": "NEW",
-                    "siteUrl": "https://www.microcrap.com/",
-                    "companyName": "MicroCrap",
-                    "registrationDate": "2016-11-02T00:00:24.406Z",
-                    "phone": "1-613-321-7654",
-                    "lastName": "Roberts",
-                    "firstName": "John"
-                 });*/
+                //vm.grid.data.push(vm.entity);
+                vm.gridApi.grid.callDbAddRow(vm.entity);
                 $modalInstance.close();
             }
         }

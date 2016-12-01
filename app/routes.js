@@ -21,15 +21,12 @@ module.exports = function (app) {
     app.post('/api/clients', function (req, res) {
 
         // create a transaction, information comes from AJAX request from Angular
-        Client.create({
-            text : req.body.text,
-            done : false
-        }, function (err, client) {
+        Client.create(req.body, function (err, client) {
             if (err) res.send(err);
             else {
                 // get and return all the clients after you create another
                 Client.find(function (err, clients) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(clients);
                 });
             }
@@ -40,7 +37,7 @@ module.exports = function (app) {
     // update a client
     app.put('/api/clients/:client_id', function (req, res) {
 
-        Client.findById(req.params.client_id, function (err, client) {
+        Client.findOne({_id: req.params.client_id}, function (err, client) {
             if (err) res.send(err);
             else {
                 client.firstName        = req.body.firstName       ;
@@ -56,11 +53,19 @@ module.exports = function (app) {
                 client.save(function (err) {
                     if (err) res.send(err);
                     else {
-                        res.json(client);
+                        // use mongoose to get all clients in the database
+                        Client.find(function (err, clients) {
+
+                            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                            if (err) res.send(err)
+                            else     res.json(clients); // return all clients in JSON format
+                        });
                     }
                 });
             }
         });
+
+
     });
 
     // delete a client
