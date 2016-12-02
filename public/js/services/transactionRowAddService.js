@@ -37,36 +37,34 @@
         vm.schema = TransactionSchema;
         vm.form = [
             {
-                'key'  : 'mintDate',
-                'type' : 'text',
-                'title': 'Minting Date'
+                field          : 'timestamp',
+                displayName    : 'Timestamp',
+                resizable      : true,
+                enableFiltering: true,
+                type           : 'date',
+                cellFilter     : 'date:"yyyy-MM-dd"'
             },
             {
-                'key'  : 'mintedAmount',
+                'key'  : 'sender',
                 'type' : 'text',
-                'title': 'Amount Minted'
-            },
-            /*{
-                'key'  : 'currentOwner',
-                'type' : 'text',
-                'title': 'Owner'
+                'title': 'Sender'
             },
             {
-                'key'  : 'history',
+                'key'  : 'recipient',
                 'type' : 'text',
-                'title': 'History'
-            },*/
+                'title': 'Recipient'
+            },
             {
                 "key"     : "state",
                 'type'    : 'select',
                 "title"   : "State",
                 'titleMap': [
-                    { value: "NEW"       , name: "New"        },
-                    { value: "CONFIRMED" , name: "Confirmed"  },
-                    { value: "ACTIVE"    , name: "Active"     },
-                    { value: "INACTIVE"  , name: "Inactive"   },
-                    { value: "IN_TRANSIT", name: "In transit" },
-                    { value: "REVOKED"   , name: "Revoked"    }
+                    { value: "NEW"                 , name: "New"                  },
+                    { value: "PENDING_VERIFICATION", name: "Pending Verification" },
+                    { value: "VERIFIED"            , name: "Verified"             },
+                    { value: "QUEUED"              , name: "Queued"               },
+                    { value: "COMPLETE"            , name: "Complete"             },
+                    { value: "ERROR"               , name: "Error"                }
                 ]
             }
         ];

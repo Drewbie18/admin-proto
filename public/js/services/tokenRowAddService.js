@@ -46,16 +46,11 @@
                 'type' : 'text',
                 'title': 'Amount Minted'
             },
-            /*{
+            {
                 'key'  : 'currentOwner',
                 'type' : 'text',
                 'title': 'Owner'
             },
-            {
-                'key'  : 'history',
-                'type' : 'text',
-                'title': 'History'
-            },*/
             {
                 "key"     : "state",
                 'type'    : 'select',

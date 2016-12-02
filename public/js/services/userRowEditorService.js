@@ -43,6 +43,11 @@
         vm.usersCtrl = usersCtrl;
         vm.form = [
             {
+                'key'  : 'name',
+                'type' : 'text',
+                'title': 'User Name'
+            },
+            {
                 'key'  : 'firstName',
                 'type' : 'text',
                 'title': 'First Name'
@@ -67,20 +72,10 @@
                 'type' : 'password',
                 'title': 'Password'
             },
-            /*{
+            {
                 'key'  : 'registrationDate',
                 'type' : 'text',
                 'title': 'Registration Date'
-            },*/
-            {
-                'key'  : 'companyName',
-                'type' : 'text',
-                'title': 'Company Name'
-            },
-            {
-                'key'  : 'siteUrl',
-                'type' : 'text',
-                'title': 'Site URL'
             },
             {
                 "key"     : "state",

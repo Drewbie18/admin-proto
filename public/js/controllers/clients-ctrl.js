@@ -38,7 +38,13 @@
                 $scope.status = 'Cancelled removing record.';
             });
         };
-        
+
+        $scope.rowTemplate = function() {
+            return '<div ng-dblclick="grid.appScope.vm.editRow(grid, row)" >' +
+                '  <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>' +
+                '</div>';
+        };
+
         vm.clientsGrid = {
 
             enableFiltering     : true,
@@ -46,13 +52,13 @@
             showGridFooter      : true,
             multiSelect         : false,
             enableColumnResizing: true,
+            rowTemplate         : $scope.rowTemplate(),
 
             columnDefs : [
                 {
                     field          : '_id',
                     displayName    : 'ID',
                     resizable      : true,
-                    cellTemplate   : 'views/edit-button.html',
                     enableCellEdit : false,
                     enableFiltering: true,
                     sort: {
@@ -124,13 +130,15 @@
                     field          : 'history',
                     displayName    : 'History',
                     resizable      : true,
-                    enableFiltering: true
+                    enableFiltering: false,
+                    visible        : false
                 },
                 {
                     field          : 'tokens',
                     displayName    : 'Tokens',
                     resizable      : true,
-                    enableFiltering: true
+                    enableFiltering: false,
+                    visible        : false
                 }
             ]
         };
@@ -222,8 +230,6 @@
                     $scope.selRowId = row.entity._id;
                 }
             });
-
-            gridApi.rowEdit.on.saveRow($scope, vm.dbSaveRow);
         };
 
         $scope.rowSelected = false;

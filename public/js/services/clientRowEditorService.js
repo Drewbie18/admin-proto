@@ -67,11 +67,11 @@
                 'type' : 'password',
                 'title': 'Password'
             },
-            /*{
+            {
                 'key'  : 'registrationDate',
                 'type' : 'text',
                 'title': 'Registration Date'
-            },*/
+            },
             {
                 'key'  : 'companyName',
                 'type' : 'text',

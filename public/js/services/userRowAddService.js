@@ -37,36 +37,50 @@
         vm.schema = UserSchema;
         vm.form = [
             {
-                'key'  : 'mintDate',
+                'key'  : 'name',
                 'type' : 'text',
-                'title': 'Minting Date'
+                'title': 'User Name'
             },
             {
-                'key'  : 'mintedAmount',
+                'key'  : 'firstName',
                 'type' : 'text',
-                'title': 'Amount Minted'
-            },
-            /*{
-                'key'  : 'currentOwner',
-                'type' : 'text',
-                'title': 'Owner'
+                'title': 'First Name'
             },
             {
-                'key'  : 'history',
+                'key'  : 'lastName',
                 'type' : 'text',
-                'title': 'History'
-            },*/
+                'title': 'Last Name'
+            },
+            {
+                'key'  : 'email',
+                'type' : 'text',
+                'title': 'Email Address'
+            },
+            {
+                'key'  : 'phone',
+                'type' : 'text',
+                'title': 'Phone Number'
+            },
+            {
+                'key'  : 'password',
+                'type' : 'password',
+                'title': 'Password'
+            },
+            {
+                'key'  : 'registrationDate',
+                'type' : 'text',
+                'title': 'Registration Date'
+            },
             {
                 "key"     : "state",
                 'type'    : 'select',
                 "title"   : "State",
                 'titleMap': [
-                    { value: "NEW"       , name: "New"        },
-                    { value: "CONFIRMED" , name: "Confirmed"  },
-                    { value: "ACTIVE"    , name: "Active"     },
-                    { value: "INACTIVE"  , name: "Inactive"   },
-                    { value: "IN_TRANSIT", name: "In transit" },
-                    { value: "REVOKED"   , name: "Revoked"    }
+                    { value: "NEW"               , name: "New"                },
+                    { value: "PENDING_ACTIVATION", name: "Pending Activation" },
+                    { value: "ACTIVE"            , name: "Active"             },
+                    { value: "SUSPENDED"         , name: "Suspended"          },
+                    { value: "CLOSED"            , name: "Closed"             }
                 ]
             }
         ];

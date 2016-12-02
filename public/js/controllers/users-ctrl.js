@@ -39,6 +39,12 @@
             });
         };
 
+        $scope.rowTemplate = function() {
+            return '<div ng-dblclick="grid.appScope.vm.editRow(grid, row)" >' +
+                '  <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>' +
+                '</div>';
+        };
+
         vm.usersGrid = {
 
             enableFiltering     : true,
@@ -46,13 +52,13 @@
             showGridFooter      : true,
             multiSelect         : false,
             enableColumnResizing: true,
+            rowTemplate         : $scope.rowTemplate(),
 
             columnDefs : [
                 {
                     field          : '_id',
                     displayName    : 'ID',
                     resizable      : true,
-                    cellTemplate   : 'views/edit-button.html',
                     enableCellEdit : false,
                     enableFiltering: true,
                     sort: {
@@ -62,29 +68,20 @@
                     }
                 },
                 {
-                    field                   : 'state',
-                    displayName             : 'State',
-                    resizable               : true,
-                    editableCellTemplate    : 'ui-grid/dropdownEditor',
-                    cellFilter              : 'mapState',
-                    editDropdownValueLabel  : 'state',
-                    editDropdownOptionsArray: [
-                        { id: "NEW"               , state: 'New'               },
-                        { id: "PENDING_ACTIVATION", state: 'Pending Activation'},
-                        { id: "ACTIVE"            , state: 'Active'            },
-                        { id: "SUSPENDED"         , state: 'Suspended'         },
-                        { id: "CLOSED"            , state: 'Closed'            }
-                    ]
-                },
-                {
-                    field          : 'lastName',
-                    displayName    : 'Last Name',
+                    field          : 'name',
+                    displayName    : 'User Name',
                     resizable      : true,
                     enableFiltering: true
                 },
                 {
                     field          : 'firstName',
                     displayName    : 'First Name',
+                    resizable      : true,
+                    enableFiltering: true
+                },
+                {
+                    field          : 'lastName',
+                    displayName    : 'lastName',
                     resizable      : true,
                     enableFiltering: true
                 },
@@ -101,18 +98,6 @@
                     enableFiltering: true
                 },
                 {
-                    field          : 'companyName',
-                    displayName    : 'Company Name',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'siteUrl',
-                    displayName    : 'Site URL',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
                     field          : 'registrationDate',
                     displayName    : 'Registration Date',
                     resizable      : true,
@@ -121,18 +106,20 @@
                     cellFilter     : 'date:"yyyy-MM-dd"'
                 },
                 {
-                    field          : 'history',
-                    displayName    : 'History',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'tokens',
-                    displayName    : 'Tokens',
-                    resizable      : true,
-                    enableFiltering: true
-                }
-            ]
+                    field                   : 'state',
+                    displayName             : 'State',
+                    resizable               : true,
+                    editableCellTemplate    : 'ui-grid/dropdownEditor',
+                    cellFilter              : 'mapState',
+                    editDropdownValueLabel  : 'state',
+                    editDropdownOptionsArray: [
+                        { id: "NEW"               , state: 'New'               },
+                        { id: "PENDING_ACTIVATION", state: 'Pending Activation'},
+                        { id: "ACTIVE"            , state: 'Active'            },
+                        { id: "SUSPENDED"         , state: 'Suspended'         },
+                        { id: "CLOSED"            , state: 'Closed'            }
+                    ]
+                }]
         };
 
         vm.checkAndUpdateData = function(data) {
@@ -222,8 +209,6 @@
                     $scope.selRowId = row.entity._id;
                 }
             });
-
-            gridApi.rowEdit.on.saveRow($scope, vm.dbSaveRow);
         };
 
         $scope.rowSelected = false;

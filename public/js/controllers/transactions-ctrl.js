@@ -39,6 +39,12 @@
             });
         };
 
+        $scope.rowTemplate = function() {
+            return '<div ng-dblclick="grid.appScope.vm.editRow(grid, row)" >' +
+                '  <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>' +
+                '</div>';
+        };
+
         vm.transactionsGrid = {
 
             enableFiltering     : true,
@@ -46,6 +52,7 @@
             showGridFooter      : true,
             multiSelect         : false,
             enableColumnResizing: true,
+            rowTemplate         : $scope.rowTemplate(),
 
             columnDefs : [
                 {
@@ -62,6 +69,18 @@
                     }
                 },
                 {
+                    field          : 'sender',
+                    displayName    : 'Sender',
+                    resizable      : true,
+                    enableFiltering: true
+                },
+                {
+                    field          : 'recipient',
+                    displayName    : 'Recipient',
+                    resizable      : true,
+                    enableFiltering: true
+                },
+                {
                     field                   : 'state',
                     displayName             : 'State',
                     resizable               : true,
@@ -69,68 +88,13 @@
                     cellFilter              : 'mapState',
                     editDropdownValueLabel  : 'state',
                     editDropdownOptionsArray: [
-                        { id: "NEW"               , state: 'New'               },
-                        { id: "PENDING_ACTIVATION", state: 'Pending Activation'},
-                        { id: "ACTIVE"            , state: 'Active'            },
-                        { id: "SUSPENDED"         , state: 'Suspended'         },
-                        { id: "CLOSED"            , state: 'Closed'            }
+                        { id: "NEW"                 , state: 'New'                  },
+                        { id: "PENDING_VERIFICATION", state: 'Pending Verification' },
+                        { id: "VERIFIED"            , state: 'Verified'             },
+                        { id: "QUEUED"              , state: 'Queued'               },
+                        { id: "COMPLETE"            , state: 'Complete'             },
+                        { id: "ERROR"               , state: 'Error'                }
                     ]
-                },
-                {
-                    field          : 'lastName',
-                    displayName    : 'Last Name',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'firstName',
-                    displayName    : 'First Name',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'email',
-                    displayName    : 'Email Address',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'phone',
-                    displayName    : 'Phone #',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'companyName',
-                    displayName    : 'Company Name',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'siteUrl',
-                    displayName    : 'Site URL',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'registrationDate',
-                    displayName    : 'Registration Date',
-                    resizable      : true,
-                    enableFiltering: true,
-                    type           : 'date',
-                    cellFilter     : 'date:"yyyy-MM-dd"'
-                },
-                {
-                    field          : 'history',
-                    displayName    : 'History',
-                    resizable      : true,
-                    enableFiltering: true
-                },
-                {
-                    field          : 'tokens',
-                    displayName    : 'Tokens',
-                    resizable      : true,
-                    enableFiltering: true
                 }
             ]
         };
@@ -222,8 +186,6 @@
                     $scope.selRowId = row.entity._id;
                 }
             });
-
-            gridApi.rowEdit.on.saveRow($scope, vm.dbSaveRow);
         };
 
         $scope.rowSelected = false;

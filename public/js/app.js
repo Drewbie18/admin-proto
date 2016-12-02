@@ -1,9 +1,7 @@
 var hi5AdminApp = angular.module('hi5-admin-app', [
     'ngRoute',
     'ui.grid',
-    'ui.grid.edit',
     'ui.grid.resizeColumns',
-    'ui.grid.rowEdit',
     'ui.grid.cellNav',
     'ui.grid.selection',
     'ui.bootstrap',
@@ -74,10 +72,10 @@ hi5AdminApp.constant('ClientSchema', {
             type : 'string',
             title: 'Password'
         },
-        /*registrationDate : {
+        registrationDate : {
          type : Date,
          title: Date.now()
-         },*/
+        },
         companyName : {
             type : 'string',
             title: 'Company Name'
@@ -109,10 +107,10 @@ hi5AdminApp.constant('ClientSchema', {
 hi5AdminApp.constant('TokenSchema', {
     type: 'object',
     properties: {
-        /*mintDate : {
+        mintDate : {
          type : Date,
          title: Date.now()
-         },*/
+         },
         mintedAmount : {
             type : 'string',
             title: 'Amount Minted'
@@ -137,5 +135,86 @@ hi5AdminApp.constant('TokenSchema', {
              'REVOKED'
              ]*/
         }
+    }
+});
+
+hi5AdminApp.constant('TransactionSchema', {
+    type: 'object',
+    properties: {
+         timestamp : {
+         type : Date,
+         title: Date.now()
+         },
+        sender : {
+            type : 'string',
+            title: 'Sender'
+        },
+        recipient : {
+            type : 'string',
+            title: 'Recipient'
+        },
+        state : {
+            type : 'string',
+            title: 'State'
+            /*enum: [
+             'NEW',
+             'CONFIRMED',
+             'ACTIVE',
+             'INACTIVE',
+             'IN_TRANSIT',
+             'REVOKED'
+             ]*/
+        }
+    }
+});
+
+hi5AdminApp.constant('UserSchema', {
+    type: 'object',
+    properties: {
+        name : {
+            type : 'string',
+            title: 'User Name'
+        },
+        firstName : {
+            type : 'string',
+            title: 'First Name'
+        },
+        lastName : {
+            type : 'string',
+            title: 'Last Name'
+        },
+        email : {
+            type : 'string',
+            title: 'Email Address'
+        },
+        phone : {
+            type : 'string',
+            title: 'Phone Number'
+        },
+        password : {
+            type : 'string',
+            title: 'Password'
+        },
+        registrationDate : {
+            type : Date,
+            title: Date.now()
+        },
+        state : {
+            type : 'string',
+            title: 'State'
+            /*enum: [
+             'NEW',
+             'PENDING_ACTIVATION',
+             'ACTIVE',
+             'SUSPENDED',
+             'CLOSED'
+             ]*/
+        }
+        /*tokens : {
+         type : [mongoose.Schema.Types.ObjectId]
+         },
+         history : {
+         type : [mongoose.Schema.Types.ObjectId]
+         }*/
     }
 });

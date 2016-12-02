@@ -43,55 +43,31 @@
         vm.transactionsCtrl = transactionsCtrl;
         vm.form = [
             {
-                'key'  : 'firstName',
+                'key'  : 'timestamp',
                 'type' : 'text',
-                'title': 'First Name'
+                'title': 'Timestamp'
             },
             {
-                'key'  : 'lastName',
+                'key'  : 'sender',
                 'type' : 'text',
-                'title': 'Last Name'
+                'title': 'Sender'
             },
             {
-                'key'  : 'email',
+                'key'  : 'recipient',
                 'type' : 'text',
-                'title': 'Email Address'
-            },
-            {
-                'key'  : 'phone',
-                'type' : 'text',
-                'title': 'Phone Number'
-            },
-            {
-                'key'  : 'password',
-                'type' : 'password',
-                'title': 'Password'
-            },
-            /*{
-                'key'  : 'registrationDate',
-                'type' : 'text',
-                'title': 'Registration Date'
-            },*/
-            {
-                'key'  : 'companyName',
-                'type' : 'text',
-                'title': 'Company Name'
-            },
-            {
-                'key'  : 'siteUrl',
-                'type' : 'text',
-                'title': 'Site URL'
+                'title': 'Recipient'
             },
             {
                 "key"     : "state",
                 'type'    : 'select',
                 "title"   : "State",
                 'titleMap': [
-                    { value: "NEW"               , name: "New"                },
-                    { value: "PENDING_ACTIVATION", name: "Pending Activation" },
-                    { value: "ACTIVE"            , name: "Active"             },
-                    { value: "SUSPENDED"         , name: "Suspended"          },
-                    { value: "CLOSED"            , name: "Closed"             }
+                    { value: "NEW"                 , name: "New"                  },
+                    { value: "PENDING_VERIFICATION", name: "Pending Verification" },
+                    { value: "VERIFIED"            , name: "Verified"             },
+                    { value: "QUEUED"              , name: "Queued"               },
+                    { value: "COMPLETE"            , name: "Complete"             },
+                    { value: "ERROR"               , name: "Error"                }
                 ]
             }
         ];

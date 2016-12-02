@@ -38,47 +38,47 @@
         vm.form = [
             {
                 'key'  : 'firstName',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'First Name'
             },
             {
                 'key'  : 'lastName',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Last Name'
             },
             {
                 'key'  : 'email',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Email Address'
             },
             {
                 'key'  : 'phone',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Phone Number'
             },
             {
                 'key'  : 'password',
-                'type' :'password',
+                'type' : 'password',
                 'title': 'Password'
             },
             {
                 'key'  : 'registrationDate',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Registration Date'
             },
             {
                 'key'  : 'companyName',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Company Name'
             },
             {
-                'key'  : 'sitUrl',
-                'type' :'text',
+                'key'  : 'siteUrl',
+                'type' : 'text',
                 'title': 'Site URL'
             },
             {
                 "key"     : "state",
-                'type'    :'select',
+                'type'    : 'select',
                 "title"   : "State",
                 'titleMap': [
                     { value: "NEW"               , name: "New"                },
