@@ -3,14 +3,22 @@
 
         var factory = {};
 
+        // C
+        factory.create = function (tokenData) {
+            return $http.post('/api/tokens', tokenData);
+        };
+
+        // R
         factory.get = function () {
             return $http.get('/api/tokens');
         };
 
-        factory.create = function (clientData) {
-            return $http.post('/api/tokens', tokenData);
+        // U
+        factory.update = function (tokenData) {
+            return $http.put('/api/tokens/' + tokenData._id, tokenData);
         };
 
+        // D
         factory.delete = function (id) {
             return $http.delete('/api/tokens/' + id);
         };

@@ -1,84 +1,90 @@
 (function () {
-    var rowAddService = function($rootScope, $modal) {
+    var userRowEditorService = function ($rootScope, $modal) {
 
         var factory = {};
-
-        factory.addRow = function() {
+        factory.editRow = function (grid, row) {
             $modal.open({
-                templateUrl: '/views/add-modal.html',
-                controller: ['$modalInstance', 'ClientSchema', 'grid', 'gridApi', '$scope', rowAddController],
+                templateUrl: '/views/user-edit-modal.html',
+                controller: ['$modalInstance', 'UserSchema', 'grid', 'row', 'usersCtrl', userRowEditController],
                 controllerAs: 'vm',
                 resolve: {
                     grid: function () {
-                        return $rootScope.grid;
+                        return grid;
                     },
-                    gridApi: function () {
-                        return $rootScope.gridApi;
+                    row: function () {
+                        return row;
+                    },
+                    usersCtrl: function () {
+                        return $rootScope.usersCtrl;
                     }
                 }
             });
         };
 
-        factory.setGrid = function(grid, gridApi) {
-            $rootScope.grid    = grid;
-            $rootScope.gridApi = gridApi;
+        factory.setUsersCtrl = function(ctrl) {
+            $rootScope.usersCtrl = ctrl;
         };
 
         return factory;
     };
 
-    rowAddService.$inject = ['$rootScope', '$modal'];
+    userRowEditorService.$inject = ['$rootScope', '$modal'];
 
-    angular.module('hi5-admin-app').factory('rowAddService', rowAddService);
+    angular.module('hi5-admin-app').factory('userRowEditorService', userRowEditorService);
 
-    var rowAddController = function ($modalInstance, ClientSchema, grid, gridApi, $scope) {
+
+
+
+    var userRowEditController = function ($modalInstance, UserSchema, grid, row, usersCtrl) {
         var vm = this;
-
-        vm.schema = ClientSchema;
+        
+        vm.schema = UserSchema;
+        vm.entity = angular.copy(row.entity);
+        vm.usersCtrl = usersCtrl;
         vm.form = [
             {
                 'key'  : 'firstName',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'First Name'
             },
             {
                 'key'  : 'lastName',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Last Name'
             },
             {
                 'key'  : 'email',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Email Address'
             },
             {
                 'key'  : 'phone',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Phone Number'
             },
             {
                 'key'  : 'password',
-                'type' :'password',
+                'type' : 'password',
                 'title': 'Password'
             },
             /*{
                 'key'  : 'registrationDate',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Registration Date'
             },*/
             {
                 'key'  : 'companyName',
-                'type' :'text',
+                'type' : 'text',
                 'title': 'Company Name'
             },
             {
-                'key'  : 'sitUrl',
-                'type' :'text',
+                'key'  : 'siteUrl',
+                'type' : 'text',
                 'title': 'Site URL'
             },
             {
                 "key"     : "state",
-                'type'    :'select',
+                'type'    : 'select',
                 "title"   : "State",
                 'titleMap': [
                     { value: "NEW"               , name: "New"                },
@@ -89,19 +95,17 @@
                 ]
             }
         ];
-        vm.entity = {};
+
         vm.grid = grid;
-        vm.gridApi = gridApi;
-        vm.add = function (form) {
-            $scope.$broadcast('schemaFormValidate');
-            if (form.$valid) {
-                //vm.grid.data.push(vm.entity);
-                vm.gridApi.grid.callDbAddRow(vm.entity);
-                $modalInstance.close();
-            }
+        vm.row = row;
+        vm.save = function () {
+            // Copy row values over
+            row.entity = angular.extend(row.entity, vm.entity);
+            $modalInstance.close(row.entity);
+            usersCtrl.dbSaveRow(row.entity);
         }
     };
 
-    angular.module('hi5-admin-app').controller('row-add-ctrl', rowAddController);
+    angular.module('hi5-admin-app').controller('user-row-edit-ctrl', userRowEditController);
 
 }());

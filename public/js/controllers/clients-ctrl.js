@@ -7,8 +7,8 @@
         $q,
         $interval,
         uiGridConstants,
-        rowEditorService,
-        rowAddService,
+        clientRowEditorService,
+        clientRowAddService,
         $mdDialog
     ) {
 
@@ -18,8 +18,8 @@
         $scope.vm = vm;
 
 
-        vm.editRow = rowEditorService.editRow;
-        vm.addRow  = rowAddService.addRow;
+        vm.editRow = clientRowEditorService.editRow;
+        vm.addRow  = clientRowAddService.addRow;
         vm.data = {};
 
         $scope.showConfirm = function(ev) {
@@ -188,8 +188,8 @@
         vm.clientsGrid.onRegisterApi = function(gridApi){
             //set gridApi on scope
             $scope.gridApi = gridApi;
-            rowAddService.setGrid(vm.clientsGrid, gridApi);
-            rowEditorService.setClientsCtrl(vm);
+            clientRowAddService.setGrid(vm.clientsGrid, gridApi);
+            clientRowEditorService.setClientsCtrl(vm);
 
             $scope.gridApi.grid.callDbAddRow = function(data) {
                 vm.dbAddRow(data);
@@ -237,8 +237,8 @@
         '$q',
         '$interval',
         'uiGridConstants',
-        'rowEditorService',
-        'rowAddService',
+        'clientRowEditorService',
+        'clientRowAddService',
         '$mdDialog'
     ];
 

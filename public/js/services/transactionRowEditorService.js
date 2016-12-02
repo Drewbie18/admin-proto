@@ -1,11 +1,11 @@
 (function () {
-    var rowEditorService = function ($rootScope, $modal) {
+    var transactionRowEditorService = function ($rootScope, $modal) {
 
         var factory = {};
         factory.editRow = function (grid, row) {
             $modal.open({
-                templateUrl: '/views/edit-modal.html',
-                controller: ['$modalInstance', 'ClientSchema', 'grid', 'row', 'clientsCtrl', rowEditController],
+                templateUrl: '/views/transaction-edit-modal.html',
+                controller: ['$modalInstance', 'TransactionSchema', 'grid', 'row', 'transactionsCtrl', transactionRowEditController],
                 controllerAs: 'vm',
                 resolve: {
                     grid: function () {
@@ -14,33 +14,33 @@
                     row: function () {
                         return row;
                     },
-                    clientsCtrl: function () {
-                        return $rootScope.clientsCtrl;
+                    transactionsCtrl: function () {
+                        return $rootScope.transactionsCtrl;
                     }
                 }
             });
         };
 
-        factory.setClientsCtrl = function(ctrl) {
-            $rootScope.clientsCtrl = ctrl;
+        factory.setTransactionsCtrl = function(ctrl) {
+            $rootScope.transactionsCtrl = ctrl;
         };
 
         return factory;
     };
 
-    rowEditorService.$inject = ['$rootScope', '$modal'];
+    transactionRowEditorService.$inject = ['$rootScope', '$modal'];
 
-    angular.module('hi5-admin-app').factory('rowEditorService', rowEditorService);
-
-
+    angular.module('hi5-admin-app').factory('transactionRowEditorService', transactionRowEditorService);
 
 
-    var rowEditController = function ($modalInstance, ClientSchema, grid, row, clientsCtrl) {
+
+
+    var transactionRowEditController = function ($modalInstance, TransactionSchema, grid, row, transactionsCtrl) {
         var vm = this;
         
-        vm.schema = ClientSchema;
+        vm.schema = TransactionSchema;
         vm.entity = angular.copy(row.entity);
-        vm.clientsCtrl = clientsCtrl;
+        vm.transactionsCtrl = transactionsCtrl;
         vm.form = [
             {
                 'key'  : 'firstName',
@@ -102,10 +102,10 @@
             // Copy row values over
             row.entity = angular.extend(row.entity, vm.entity);
             $modalInstance.close(row.entity);
-            clientsCtrl.dbSaveRow(row.entity);
+            transactionsCtrl.dbSaveRow(row.entity);
         }
     };
 
-    angular.module('hi5-admin-app').controller('row-edit-ctrl', rowEditController);
+    angular.module('hi5-admin-app').controller('transaction-row-edit-ctrl', transactionRowEditController);
 
 }());

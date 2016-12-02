@@ -75,9 +75,9 @@ hi5AdminApp.constant('ClientSchema', {
             title: 'Password'
         },
         /*registrationDate : {
-            type : Date,
-            title: Date.now()
-        },*/
+         type : Date,
+         title: Date.now()
+         },*/
         companyName : {
             type : 'string',
             title: 'Company Name'
@@ -90,18 +90,52 @@ hi5AdminApp.constant('ClientSchema', {
             type : 'string',
             title: 'State'
             /*enum: [
-                'NEW',
-                'PENDING_ACTIVATION',
-                'ACTIVE',
-                'SUSPENDED',
-                'CLOSED'
-            ]*/
+             'NEW',
+             'PENDING_ACTIVATION',
+             'ACTIVE',
+             'SUSPENDED',
+             'CLOSED'
+             ]*/
         }
         /*tokens : {
-            type : [mongoose.Schema.Types.ObjectId]
+         type : [mongoose.Schema.Types.ObjectId]
+         },
+         history : {
+         type : [mongoose.Schema.Types.ObjectId]
+         }*/
+    }
+});
+
+hi5AdminApp.constant('TokenSchema', {
+    type: 'object',
+    properties: {
+        /*mintDate : {
+         type : Date,
+         title: Date.now()
+         },*/
+        mintedAmount : {
+            type : 'string',
+            title: 'Amount Minted'
+        },
+        currentOwner : {
+            type : 'string',
+            title: 'Owner'
         },
         history : {
-            type : [mongoose.Schema.Types.ObjectId]
-        }*/
+            type : 'string',
+            title: 'History'
+        },
+        state : {
+            type : 'string',
+            title: 'State'
+            /*enum: [
+             'NEW',
+             'CONFIRMED',
+             'ACTIVE',
+             'INACTIVE',
+             'IN_TRANSIT',
+             'REVOKED'
+             ]*/
+        }
     }
 });

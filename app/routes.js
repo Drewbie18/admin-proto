@@ -12,7 +12,7 @@ module.exports = function (app) {
         Client.find(function (err, clients) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err) res.send(err)
+            if (err) res.send(err);
             else     res.json(clients); // return all clients in JSON format
         });
     });
@@ -77,7 +77,7 @@ module.exports = function (app) {
             else {
                 // get and return all the clients after you create another
                 Client.find(function (err, clients) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(clients);
                 });
             }
@@ -91,7 +91,7 @@ module.exports = function (app) {
         Token.find(function (err, tokens) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err) res.send(err)
+            if (err) res.send(err);
             else     res.json(tokens); // return all tokens in JSON format
         });
     });
@@ -105,7 +105,7 @@ module.exports = function (app) {
             else {
                 // get and return all the tokens after you create another
                 Token.find(function (err, tokens) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(tokens);
                 });
             }

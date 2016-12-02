@@ -1,5 +1,10 @@
-<div class="jumbotron text-center">
-    <h1>Tokens</h1>
+<div class="jumbotron text-left">
+    <h2>Tokens</h2>
 
-    <p>{{ tagline }}</p>
+    <div ng-controller="tokens-ctrl as vm">
+        <button type="button" id="addToken" class="btn btn-success" ng-click="vm.addRow(grid);">Add Token</button>
+        <button type="button" id="removeSelected" class="btn btn-danger" ng-click="showConfirm()" ng-disabled="!rowSelected">Remove Selected Token</button>
+
+        <div ui-grid="vm.tokensGrid" ui-grid-resize-columns ui-grid-selection ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="myGrid"></div>
+    </div>
 </div>
