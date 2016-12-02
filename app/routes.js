@@ -116,7 +116,7 @@ module.exports = function (app) {
     // update a token
     app.put('/api/tokens/:token_id', function (req, res) {
 
-        Token.findById(req.params._id, function (err, token) {
+        Token.findOne({_id: req.params.token_id}, function (err, token) {
             if (err) res.send(err);
             else {
                 token.mintDate     = req.body.mintDate    ;
@@ -128,7 +128,13 @@ module.exports = function (app) {
                 token.save(function (err) {
                     if (err) res.send(err);
                     else {
-                        res.json(token);
+                        // use mongoose to get all tokens in the database
+                        Token.find(function (err, tokens) {
+
+                            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                            if (err) res.send(err)
+                            else     res.json(tokens); // return all clients in JSON format
+                        });
                     }
                 });
             }
@@ -144,7 +150,7 @@ module.exports = function (app) {
             else {
                 // get and return all the tokens after you create another
                 Token.find(function (err, tokens) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(tokens);
                 });
             }
@@ -159,7 +165,7 @@ module.exports = function (app) {
         Transaction.find(function (err, transactions) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err) res.send(err)
+            if (err) res.send(err);
             else     res.json(transactions); // return all transactions in JSON format
         });
     });
@@ -173,7 +179,7 @@ module.exports = function (app) {
             else {
                 // get and return all the transactions after you create another
                 Transaction.find(function (err, transactions) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(transactions);
                 });
             }
@@ -184,7 +190,7 @@ module.exports = function (app) {
     // update a transaction
     app.put('/api/transactions/:transaction_id', function (req, res) {
 
-        Transaction.findById(req.params._id, function (err, transaction) {
+        Transaction.findOne({_id: req.params.transaction_id}, function (err, transaction) {
             if (err) res.send(err);
             else {
                 transaction.timestamp = req.body.timestamp;
@@ -196,7 +202,13 @@ module.exports = function (app) {
                 transaction.save(function (err) {
                     if (err) res.send(err);
                     else {
-                        res.json(transaction);
+                        // use mongoose to get all transactions in the database
+                        Transaction.find(function (err, transactions) {
+
+                            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                            if (err) res.send(err)
+                            else     res.json(transactions); // return all clients in JSON format
+                        });
                     }
                 });
             }
@@ -212,7 +224,7 @@ module.exports = function (app) {
             else {
                 // get and return all the transactions after you create another
                 Transaction.find(function (err, transactions) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(transactions);
                 });
             }
@@ -227,7 +239,7 @@ module.exports = function (app) {
         User.find(function (err, users) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err) res.send(err)
+            if (err) res.send(err);
             else     res.json(users); // return all users in JSON format
         });
     });
@@ -241,7 +253,7 @@ module.exports = function (app) {
             else {
                 // get and return all the users after you create another
                 User.find(function (err, users) {
-                    if (err) res.send(err)
+                    if (err) res.send(err);
                     else     res.json(users);
                 });
             }
@@ -252,10 +264,10 @@ module.exports = function (app) {
     // update a user
     app.put('/api/users/:user_id', function (req, res) {
 
-        User.findById(req.params._id, function (err, user) {
+        User.findOne({_id: req.params.user_id}, function (err, user) {
             if (err) res.send(err);
             else {
-                user.name = req.body.timestamp;
+                user.name             = req.body.name            ;
                 user.firstName        = req.body.firstName       ;
                 user.lastName         = req.body.lastName        ;
                 user.email            = req.body.email           ;
@@ -269,7 +281,13 @@ module.exports = function (app) {
                 user.save(function (err) {
                     if (err) res.send(err);
                     else {
-                        res.json(user);
+                        // use mongoose to get all transactions in the database
+                        User.find(function (err, users) {
+
+                            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+                            if (err) res.send(err)
+                            else     res.json(users); // return all clients in JSON format
+                        });
                     }
                 });
             }
